@@ -1,4 +1,5 @@
 {
+  "java.configuration.updateBuildConfiguration": "interactive",
   "java.project.referencedLibraries": [
     "/home/woodz/Dev/Libs/javafx-sdk-21.0.1/lib/javafx.base.jar",
     "/home/woodz/Dev/Libs/javafx-sdk-21.0.1/lib/javafx.controls.jar",
