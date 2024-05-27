@@ -1,14 +1,11 @@
 package src.main.java.de.tiny;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,14 +14,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-public class PomoTimerController implements Initializable {
+public class PomoTimerController {
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     @FXML
-    private ProgressBar FortschrittsBalkenWork;
+    private ProgressBar FortschrittsBalken;
 
     @FXML
     private Text ZeitAnzeige;
@@ -41,24 +38,50 @@ public class PomoTimerController implements Initializable {
         stage.show();
     }
 
-    void startPomodoro(int Work, int Pause, int runden) {
+    void startPomodoro(int Work, int pause, int runden) {
         Timer timer = new Timer();
-        ZeitAnzeige.setText((String.valueOf(Work)));
-
         TimerTask task = new TimerTask() {
+            int verbleibendeSekunden = Work / Work * 60;
+            int verbleibendeMinuten = Work - 1;
+            int pausenZeit = pause;
+            int rundenzaehler = runden;
+            boolean arbeitsPhase = true;
+    
             @Override
             public void run() {
-                System.out.println("test");
-
+                if (rundenzaehler > 0) {
+                    if (verbleibendeMinuten >= 0) {
+                        ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden ));
+                        FortschrittsBalken.setProgress((double) verbleibendeMinuten / (arbeitsPhase ? Work : pausenZeit));
+                        System.out.println(rundenzaehler);
+                        verbleibendeSekunden--;
+                        if (verbleibendeSekunden == 0) {
+                            verbleibendeMinuten--;
+                            verbleibendeSekunden = 59;
+                        }
+                    } else {
+                        if (arbeitsPhase) {
+                            verbleibendeMinuten = pausenZeit - 1;
+                            verbleibendeSekunden = 59;
+                            arbeitsPhase = false;
+                        } else {
+                            verbleibendeMinuten = Work - 1;
+                            verbleibendeSekunden = 59;
+                            arbeitsPhase = true;
+                            rundenzaehler--;
+                        }
+                    }
+                }
+                
+                if (rundenzaehler == 0) {
+                    timer.cancel();
+                    ZeitAnzeige.setText("   \uD83D\uDC4D");
+                    FortschrittsBalken.setProgress(0);
+                }
             }
         };
-        timer.schedule(task, 1000);
-
+    
+        // auf 1000 stellen, damit es im Minutentakt geht
+        timer.scheduleAtFixedRate(task, 0, 20);
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ZeitAnzeige.setText("324");
-    }
-
 }

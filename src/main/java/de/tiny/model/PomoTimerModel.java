@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 public class PomoTimerModel {
 
-    public static ObservableList<Integer> zeitListe = FXCollections.observableArrayList(1, 2, 3);
+    public static ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 10, 20);
     public static ObservableList<Integer> rundenListe = FXCollections.observableArrayList(1, 2, 3, 4, 5);
 
     public static ObservableList<Integer> getZeitListe() {
