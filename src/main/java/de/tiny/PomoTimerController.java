@@ -72,15 +72,13 @@ public class PomoTimerController {
                         }
                     }
                 }
-                
                 if (rundenzaehler == 0) {
                     timer.cancel();
-                    ZeitAnzeige.setText("   \uD83D\uDC4D");
+                    ZeitAnzeige.setText("   \uD83D\uDC4D"); //Daumen hoch
                     FortschrittsBalken.setProgress(0);
                 }
             }
         };
-    
         // auf 1000 stellen, damit es im Minutentakt geht
         timer.scheduleAtFixedRate(task, 0, 20);
     }
