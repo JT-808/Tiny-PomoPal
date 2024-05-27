@@ -6,15 +6,18 @@ ReadMe is under construction
 
 a small Pomodoro timer
 
----
+## installation
+
+- fill me
 
 ## features
 
-- Auswählbare Arbeits- und Pausenzeiten
-- ***
+- Selectable working and break times and number of rounds
+- delay to start
 
 ## coming soon
 
--
 - profiles
 - sounds
+- backgroundmusic
+- local worktime saving

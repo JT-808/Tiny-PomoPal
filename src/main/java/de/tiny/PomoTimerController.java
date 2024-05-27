@@ -37,9 +37,19 @@ public class PomoTimerController {
         stage.setScene(scene);
         stage.show();
     }
-
+    //delay  von 3 sekunden -> danach Timer starten
     void startPomodoro(int Work, int pause, int runden) {
         Timer timer = new Timer();
+        TimerTask delayTask = new TimerTask() {
+            @Override
+            public void run() {
+                startTimer(timer, Work, pause, runden);
+            }
+        };
+        timer.schedule(delayTask, 3000); // 3 Sekunden Verzögerung
+    }
+
+    private void startTimer(Timer timer, int Work, int pause, int runden) {
         TimerTask task = new TimerTask() {
             int verbleibendeSekunden = Work / Work * 60;
             int verbleibendeMinuten = Work - 1;
@@ -49,6 +59,7 @@ public class PomoTimerController {
     
             @Override
             public void run() {
+          
                 if (rundenzaehler > 0) {
                     if (verbleibendeMinuten >= 0) {
                         ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden ));
@@ -80,6 +91,9 @@ public class PomoTimerController {
             }
         };
         // auf 1000 stellen, damit es im Minutentakt geht
-        timer.scheduleAtFixedRate(task, 0, 20);
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
+
+    
+
 }
