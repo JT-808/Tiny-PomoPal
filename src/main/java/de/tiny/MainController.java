@@ -83,6 +83,16 @@ public class MainController extends PomoTimerModel implements Initializable {
         // damit die Werte übergeben werden können
         pomoTimerController = loader.getController();
         pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue());
+
+            updateProfileName();
+   
+    }
+
+   // todo: Namen soll aus dem Profil hergeholt werden
+    public void updateProfileName(){
+        String username = pc.getProfiles().getFirst(); // getFirst() ist nur als Test
+        pomoTimerController.setProfileNameText(username);
+
     }
 
     @Override
@@ -97,9 +107,6 @@ public class MainController extends PomoTimerModel implements Initializable {
 
         profileList.setItems(pc.getProfiles());
 
-               // todo: Namen soll aus dem Profil hergeholt werden
-               String username = "test";
-   //  pomoTimerController.setProfileNameText(username);
 
     }
 
