@@ -30,6 +30,13 @@ public class PomoTimerController {
     private Button buttonStop;
 
     @FXML
+    private Text profilenameText;
+
+    public void setProfileNameText(String text){
+        profilenameText.setText(text);
+    }
+
+    @FXML
     public void wechselZuMain(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/src/main/resources/de/tiny/Main.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -50,6 +57,10 @@ public class PomoTimerController {
     }
 
     private void startTimer(Timer timer, int Work, int pause, int runden) {
+
+
+
+
         TimerTask task = new TimerTask() {
             int verbleibendeSekunden = Work / Work * 60;
             int verbleibendeMinuten = Work - 1;

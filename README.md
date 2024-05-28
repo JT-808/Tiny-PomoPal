@@ -6,18 +6,21 @@ ReadMe is under construction
 
 a small Pomodoro timer
 
+profiles and Backgroundmusic are just to enlarge my project (exam)
+
 ## installation
 
-- fill me
+- coming soon
 
 ## features
 
 - Selectable working and break times and number of rounds
 - delay to start
+- select /add /delete profiles
+-
 
 ## coming soon
 
-- profiles
 - sounds
-- backgroundmusic
-- local worktime saving
+- optional backgroundmusic
+- local profile worktime saving
