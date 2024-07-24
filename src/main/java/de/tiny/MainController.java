@@ -1,8 +1,7 @@
 package src.main.java.de.tiny;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import src.main.java.de.tiny.model.PomoTimerModel;
-import src.main.java.de.tiny.model.ProfileModel;
 import javafx.scene.Node;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController extends PomoTimerModel implements Initializable {
+public class MainController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -30,7 +29,7 @@ public class MainController extends PomoTimerModel implements Initializable {
     private ChoiceBox<Integer> RundenBox;
 
     @FXML
-    public ChoiceBox<Integer> Workbox;
+    private ChoiceBox<Integer> Workbox;
 
     @FXML
     private Button buttonStart;
@@ -41,73 +40,81 @@ public class MainController extends PomoTimerModel implements Initializable {
     @FXML
     private Button delete;
 
-
     @FXML
-    private ListView<String> profileList;
+    private ListView<String> profileListView = new ListView<>();
+    
 
-    //Controller initialisieren
-    private PomoTimerController pomoTimerController;
-    private ProfileController pc = new ProfileController();
+   private ProfileController profileController ;
 
-    @FXML
-    //Klick = Abfrage nach Namen -> daraus neues Profil
-    private void addNewProfile(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        //Gestalltung der Abfrage:
-        dialog.setTitle("add");
-        dialog.setHeaderText("Please enter name");
-        dialog.setContentText("name:");
-        dialog.showAndWait(); //zwingend! sonst keine Anzeige
-        String newProfileName = dialog.getEditor().getText(); 
-       pc.addProfile(newProfileName);
-    }
-
-    @FXML
-    private void removeSelectedProfile(ActionEvent event) {
-        String selectedProfile = profileList.getSelectionModel().getSelectedItem();
-        if (selectedProfile != null) {
-            pc.removeProfile(selectedProfile);
-        }
-    }
+    // Hier keine ProfileController-Instanz, da sie nicht benötigt wird
 
     @FXML
     public void wechselZuWork(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/src/main/resources/de/tiny/PomodoroTimerView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/main/resources/de/tiny/PomodoroTimerView.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        // Lade Controllerobjekt, da sonst Controller= Null und
-        // damit die Werte übergeben werden können
-        pomoTimerController = loader.getController();
-        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue());
 
-            updateProfileName();
-   
+        PomoTimerController pomoTimerController = loader.getController();
+        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue());
+     
     }
 
-   // todo: Namen soll aus dem Profil hergeholt werden
-    public void updateProfileName(){
-        String username = pc.getProfiles().getFirst(); // getFirst() ist nur als Test
-        pomoTimerController.setProfileNameText(username);
 
+    private void updateProfileList(ObservableList<String> profileList) {
+        profileListView.getItems().clear();
+        profileListView.getItems().addAll(profileList);
+      }
+
+    @FXML
+    public void addNewProfile(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Profil hinzufügen");
+        dialog.setHeaderText("Bitte Namen eingeben");
+        dialog.setContentText("Name:");
+        dialog.showAndWait();
+
+        String newProfileName = dialog.getEditor().getText();
+        if (newProfileName != null && !newProfileName.trim().isEmpty()) {
+            // Füge Profil zur Liste hinzu (bitte implementiere die entsprechende Methode in deiner Klasse)
+            ObservableList<String> profileList = profileController.addProfileToList(newProfileName);
+            updateProfileList(profileList);
+           
+        }
+    }
+
+    @FXML
+    public void removeSelectedProfile(ActionEvent event) {
+        String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
+        if (selectedProfile != null) {
+            // Entferne Profil aus der Liste (bitte implementiere die entsprechende Methode in deiner Klasse)
+            profileController.removeProfileFromList(selectedProfile);
+            
+            //updateProfileList(profileList);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialisiere die Liste der Profile in der MainController-UI
+        profileController = new ProfileController();
+        profileController.initialize();
+
+        //Eleisen der Datei muss hier rein +
+        //update der Liste (updateProfilist())
+
+        // Beispielwerte für ChoiceBoxen
+        ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 10, 15, 25, 30); // Beispielwerte
+        ObservableList<Integer> rundenListe = FXCollections.observableArrayList(1, 2, 3, 4, 5); // Beispielwerte
 
         Workbox.setItems(zeitListe);
-        Workbox.setValue(zeitListe.getFirst());
+        Workbox.setValue(zeitListe.get(0));
         PauseBox.setItems(zeitListe);
-        PauseBox.setValue(zeitListe.getFirst());
+        PauseBox.setValue(zeitListe.get(0));
         RundenBox.setItems(rundenListe);
-        RundenBox.setValue(rundenListe.getFirst());
-
-        profileList.setItems(pc.getProfiles());
-
+        RundenBox.setValue(rundenListe.get(0));
 
     }
-
 }

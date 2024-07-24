@@ -53,7 +53,7 @@ public class PomoTimerController {
                 startTimer(timer, Work, pause, runden);
             }
         };
-        timer.schedule(delayTask, 3000); // 3 Sekunden Verzögerung
+        timer.schedule(delayTask, 3000); // 3 Sekunden Verzögerung zum starten
     }
 
     private void startTimer(Timer timer, int Work, int pause, int runden) {

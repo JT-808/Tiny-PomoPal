@@ -1,25 +1,20 @@
 package src.main.java.de.tiny.model;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 
-public class ProfileModel {
-    private ObservableList<String> profiles = FXCollections.observableArrayList();
+import java.io.Serializable;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-    public ProfileModel() {
-        // Beispielprofile hinzufügen
-        profiles.addAll("Julia", "Sue", "Hannah", "Stephan", "Denise");
-    }
+public class ProfileModel implements Serializable {
+    private final TreeSet<String>  profiles = new TreeSet();
 
-    public ObservableList<String> getProfiles() {
+    public TreeSet<String> getProfiles() {
         return profiles;
     }
-
-    public void addProfile(String profile) {
-        profiles.add(profile);
-    }
-
-    public void removeProfile(String profile) {
-        profiles.remove(profile);
-    }
+    
+ 
 }
