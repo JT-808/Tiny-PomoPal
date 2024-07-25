@@ -103,7 +103,7 @@ public class MainController implements Initializable {
 
         
         // Beispielwerte für ChoiceBoxen
-        ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 10, 15, 25, 30); // Beispielwerte
+        ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 20, 30, 45, 60); // Beispielwerte
         ObservableList<Integer> rundenListe = FXCollections.observableArrayList(1, 2, 3, 4, 5); // Beispielwerte
 
         Workbox.setItems(zeitListe);

@@ -22,7 +22,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E0E0E0;">
                <children>
-                  <Text fx:id="profilenameText" layoutX="88.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="84.98307418823242">
+                  <Text fx:id="workPauseText" layoutX="88.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="84.98307418823242">
                      <font>
                         <Font size="23.0" />
                      </font>

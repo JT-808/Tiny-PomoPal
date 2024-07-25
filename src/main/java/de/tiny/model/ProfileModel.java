@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ProfileModel implements Serializable {
-    private final HashMap<String, Set<String>> profiles = new HashMap<>();
+    private final HashMap<String, Set<Integer>> profiles = new HashMap<>();
 
-    public HashMap<String, Set<String>> getProfiles() {
+    public HashMap<String, Set<Integer>> getProfiles() {
         return profiles;
     }
 }

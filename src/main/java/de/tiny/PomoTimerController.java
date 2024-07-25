@@ -30,12 +30,18 @@ public class PomoTimerController {
     private Button buttonStop;
 
     @FXML
-    private Text profilenameText;
+    private Text workPauseText;
 
-    public void setProfileNameText(String text){
-        profilenameText.setText(text);
+    // Phasen als Text anzeigen lassen mit umschaltung
+    public void setWorkPauseText() {
+        if (!workPauseText.getText().equals("work")) {
+            workPauseText.setText("work");
+        } else {
+            workPauseText.setText("pause");
+        }
     }
 
+    // mit der Stop Taste wieder zurueck zur Hauptseite
     @FXML
     public void wechselZuMain(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/src/main/resources/de/tiny/Main.fxml"));
@@ -44,67 +50,97 @@ public class PomoTimerController {
         stage.setScene(scene);
         stage.show();
     }
-    //delay  von 3 sekunden -> danach Timer starten
-    void startPomodoro(int Work, int pause, int runden) {
-        Timer timer = new Timer();
+
+     ///////////////// Start des Pomodoro-Timers ////////////////
+
+     void startPomodoro(int work, int pause, int runden) {
+
+    //Am anfang ein kurzer Delay damit es nicht sofort los geht
+    
+        Timer delayTimer = new Timer();
         TimerTask delayTask = new TimerTask() {
+            int countdown = 3;
+
             @Override
             public void run() {
-                startTimer(timer, Work, pause, runden);
+                if (countdown > 0) {
+                    workPauseText.setText(String.valueOf(countdown));;
+                    countdown--;
+                } else {
+                    delayTimer.cancel();
+                    startTimer(new Timer(), work, pause, runden);
+                }
             }
         };
-        timer.schedule(delayTask, 3000); // 3 Sekunden Verzögerung zum starten
+        delayTimer.scheduleAtFixedRate(delayTask, 0, 1000);
     }
 
-    private void startTimer(Timer timer, int Work, int pause, int runden) {
 
-
-
-
+    // der eigentliche Timer
+    private void startTimer(Timer timer, int work, int pause, int runden) {
         TimerTask task = new TimerTask() {
-            int verbleibendeSekunden = Work / Work * 60;
-            int verbleibendeMinuten = Work - 1;
+            int verbleibendeSekunden = 0;
+            int verbleibendeMinuten = 0;
             int pausenZeit = pause;
             int rundenzaehler = runden;
             boolean arbeitsPhase = true;
-    
+
             @Override
             public void run() {
-          
                 if (rundenzaehler > 0) {
-                    if (verbleibendeMinuten >= 0) {
-                        ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden ));
-                        FortschrittsBalken.setProgress((double) verbleibendeMinuten / (arbeitsPhase ? Work : pausenZeit));
-                        System.out.println(rundenzaehler);
-                        verbleibendeSekunden--;
-                        if (verbleibendeSekunden == 0) {
-                            verbleibendeMinuten--;
-                            verbleibendeSekunden = 59;
-                        }
-                    } else {
+                    if (verbleibendeMinuten == 0 && verbleibendeSekunden == 0) {
                         if (arbeitsPhase) {
                             verbleibendeMinuten = pausenZeit - 1;
                             verbleibendeSekunden = 59;
                             arbeitsPhase = false;
+                            setWorkPauseText();
                         } else {
-                            verbleibendeMinuten = Work - 1;
+                            verbleibendeMinuten = work - 1;
                             verbleibendeSekunden = 59;
                             arbeitsPhase = true;
                             rundenzaehler--;
+                            setWorkPauseText(); // Phase wechseln
                         }
-                    }
-                }
-                if (rundenzaehler == 0) {
+                    } else {
+                        if (verbleibendeSekunden == 0) {
+                            verbleibendeMinuten--;
+                            verbleibendeSekunden = 59;
+                        } else {
+                            verbleibendeSekunden--;
+                        }
+
+                            // Zeit dauerhaft aktuallisieren und anzeigen
+                            ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden));
+
+                           // Fortschrittsbalken dauerhaft aktualisieren & anzeigen
+                            FortschrittsBalken.setProgress(berechneFortschritt(arbeitsPhase, work, pause, verbleibendeMinuten, verbleibendeSekunden));
+
+                            }
+                } else {
+                    
                     timer.cancel();
-                    ZeitAnzeige.setText("   \uD83D\uDC4D"); //Daumen hoch
+                    workPauseText.setText("finish");
+                    ZeitAnzeige.setText("   \uD83D\uDC4D"); // Daumen hoch
                     FortschrittsBalken.setProgress(0);
                 }
             }
         };
-        // auf 1000 stellen, damit es im Minutentakt geht
-        timer.scheduleAtFixedRate(task, 0, 1000);
+        // Timer alle 1000 ms (1 Sekunde) ausführen
+        timer.scheduleAtFixedRate(task, 0, 30);
     }
 
-    
+   
+    private double berechneFortschritt(boolean arbeitsPhase, int work, int pause, int verbleibendeMinuten, int verbleibendeSekunden) {
+        int totalSeconds = (arbeitsPhase ? work : pause) * 60;
+        int remainingSeconds = (verbleibendeMinuten * 60) + verbleibendeSekunden;
+        return (double) remainingSeconds / totalSeconds;
+    }
+
 
 }
+
+
+
+
+
+

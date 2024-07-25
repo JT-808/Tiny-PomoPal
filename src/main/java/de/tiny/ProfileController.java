@@ -4,13 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import src.main.java.de.tiny.model.ProfileModel;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class ProfileController {
 
@@ -80,10 +77,10 @@ public class ProfileController {
     if (file.exists()) {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
             @SuppressWarnings("unchecked")
-            HashMap<String, Set<String>> loadedProfiles = (HashMap<String, Set<String>>) in.readObject();
+            HashMap<String, Set<Integer>> loadedProfiles = (HashMap<String, Set<Integer>>) in.readObject();
             profileModel.getProfiles().clear(); // bereinige die Liste
             profileModel.getProfiles().putAll(loadedProfiles); // füge Profile aus der Datei hinzu
-            getProfileList(); // Update profileList with loaded profiles
+            getProfileList(); // aktualisiere profileList mit den geladenen Profilen
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
