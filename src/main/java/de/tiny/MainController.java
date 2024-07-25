@@ -61,8 +61,8 @@ public class MainController implements Initializable {
      
     }
 
-
-    private void updateProfileList(List<String> profileList) {
+        // aktuallisiere die ListView in der GUI
+    public void updateProfileList(List<String> profileList) { 
         profileListView.getItems().clear();
         profileListView.getItems().addAll(profileList);
       }
@@ -77,7 +77,7 @@ public class MainController implements Initializable {
 
         String newProfileName = dialog.getEditor().getText();
         if (newProfileName != null && !newProfileName.trim().isEmpty()) {
-            // Füge Profil zur Liste hinzu (bitte implementiere die entsprechende Methode in deiner Klasse)
+            // Füge Profil zur Liste hinzu
             List<String> profileList = profileController.addProfileToList(newProfileName);
             updateProfileList(profileList);
         }
@@ -89,16 +89,16 @@ public class MainController implements Initializable {
         if (selectedProfile != null) {
             // Entferne Profil aus der Liste
             List<String> profileList = profileController.removeProfileFromList(selectedProfile); 
-            // aktuallisiere die ListView ind der GUI
             updateProfileList(profileList);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialisiere die Liste der Profile in der MainController-UI
+        // Initialisiere die Liste der Profile in der MainController-GUI
         profileController = new ProfileController();
         profileController.initialize();
+
 
         //Eleisen der Datei muss hier rein +
         //update der Liste (updateProfilist())
