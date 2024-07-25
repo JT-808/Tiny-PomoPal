@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -46,8 +47,6 @@ public class MainController implements Initializable {
 
    private ProfileController profileController ;
 
-    // Hier keine ProfileController-Instanz, da sie nicht benötigt wird
-
     @FXML
     public void wechselZuWork(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/main/resources/de/tiny/PomodoroTimerView.fxml"));
@@ -63,7 +62,7 @@ public class MainController implements Initializable {
     }
 
 
-    private void updateProfileList(ObservableList<String> profileList) {
+    private void updateProfileList(List<String> profileList) {
         profileListView.getItems().clear();
         profileListView.getItems().addAll(profileList);
       }
@@ -79,9 +78,8 @@ public class MainController implements Initializable {
         String newProfileName = dialog.getEditor().getText();
         if (newProfileName != null && !newProfileName.trim().isEmpty()) {
             // Füge Profil zur Liste hinzu (bitte implementiere die entsprechende Methode in deiner Klasse)
-            ObservableList<String> profileList = profileController.addProfileToList(newProfileName);
+            List<String> profileList = profileController.addProfileToList(newProfileName);
             updateProfileList(profileList);
-           
         }
     }
 
@@ -89,10 +87,10 @@ public class MainController implements Initializable {
     public void removeSelectedProfile(ActionEvent event) {
         String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
-            // Entferne Profil aus der Liste (bitte implementiere die entsprechende Methode in deiner Klasse)
-            profileController.removeProfileFromList(selectedProfile);
-            
-            //updateProfileList(profileList);
+            // Entferne Profil aus der Liste
+            List<String> profileList = profileController.removeProfileFromList(selectedProfile); 
+            // aktuallisiere die ListView ind der GUI
+            updateProfileList(profileList);
         }
     }
 
