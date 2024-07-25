@@ -8,8 +8,6 @@ notice: comments are in german because to learn
 
 a small Pomodoro timer
 
-profiles and Backgroundmusic are just to enlarge my project (exam)
-
 ## installation
 
 - coming soon
@@ -20,9 +18,8 @@ profiles and Backgroundmusic are just to enlarge my project (exam)
 - delay to start
 - select /add /delete profiles
 - save profiles local
+- sounds between switching phases
 
 ## coming soon
 
-- sounds
-- optional backgroundmusic
 - local profile worktime saving
