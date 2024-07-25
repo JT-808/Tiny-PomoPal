@@ -23,10 +23,10 @@ public class ProfileController {
         
     }
 
-
-///////// Profile Hinzufügen und Löschen /////////////////
+///////// Profile Hinzufügen & Löschen /////////////////
 
     public List<String> addProfileToList(String profileName) {
+        if(!profileList.contains(profileName))
         addProfile(profileName);
         return profileList;
     }

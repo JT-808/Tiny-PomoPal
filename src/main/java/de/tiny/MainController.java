@@ -69,7 +69,7 @@ public class MainController implements Initializable {
     @FXML
     public void addNewProfile(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Profil hinzufügen");
+        dialog.setTitle("hinzufügen");
         dialog.setHeaderText("Bitte Namen eingeben");
         dialog.setContentText("Name:");
         dialog.showAndWait();
@@ -102,7 +102,6 @@ public class MainController implements Initializable {
        updateProfileList(profileController.getProfileList());
 
         
-
         // Beispielwerte für ChoiceBoxen
         ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 10, 15, 25, 30); // Beispielwerte
         ObservableList<Integer> rundenListe = FXCollections.observableArrayList(1, 2, 3, 4, 5); // Beispielwerte
