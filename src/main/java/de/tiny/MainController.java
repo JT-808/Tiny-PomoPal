@@ -97,7 +97,10 @@ public class MainController implements Initializable {
         // Initialisiere die Liste der Profile in der MainController-GUI
         profileController = new ProfileController();
         profileController.initialize();
-        profileListView.setItems(profileController.profileListView.getItems());
+
+        // Laden der Profil-Liste bei der Initialisierung
+       updateProfileList(profileController.getProfileList());
+
         
 
         // Beispielwerte für ChoiceBoxen
@@ -109,9 +112,9 @@ public class MainController implements Initializable {
         PauseBox.setItems(zeitListe);
         PauseBox.setValue(zeitListe.get(0));
         RundenBox.setItems(rundenListe);
-        RundenBox.setValue(rundenListe.get(0));
-
-       
+        RundenBox.setValue(rundenListe.get(0));     
+        
+        
 
     }
 }
