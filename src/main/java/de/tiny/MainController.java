@@ -63,8 +63,7 @@ public class MainController implements Initializable {
 
         // aktuallisiere die ListView in der GUI
     public void updateProfileList(List<String> profileList) { 
-        profileListView.getItems().clear();
-        profileListView.getItems().addAll(profileList);
+        profileListView.getItems().setAll(profileList);
       }
 
     @FXML
@@ -98,10 +97,8 @@ public class MainController implements Initializable {
         // Initialisiere die Liste der Profile in der MainController-GUI
         profileController = new ProfileController();
         profileController.initialize();
-
-
-        //Eleisen der Datei muss hier rein +
-        //update der Liste (updateProfilist())
+        profileListView.setItems(profileController.profileListView.getItems());
+        
 
         // Beispielwerte für ChoiceBoxen
         ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 10, 15, 25, 30); // Beispielwerte
@@ -113,6 +110,8 @@ public class MainController implements Initializable {
         PauseBox.setValue(zeitListe.get(0));
         RundenBox.setItems(rundenListe);
         RundenBox.setValue(rundenListe.get(0));
+
+       
 
     }
 }

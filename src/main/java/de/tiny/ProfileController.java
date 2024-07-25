@@ -15,8 +15,7 @@ import java.util.TreeSet;
 
 public class ProfileController {
 
-    @FXML
-    private ListView<String> profileListView = new ListView<>();
+    @FXML ListView<String> profileListView = new ListView<>();
     public ProfileModel profileModel;
     private List<String> profileList;
     
@@ -24,11 +23,6 @@ public class ProfileController {
     public void initialize() {
         profileModel = new ProfileModel();
         loadProfilesFromFile(); // Lade Profile aus der Datei
-       // ziehe die Profile in die Listview
-      List<String> profileList = getProfileList();
-    //    updateProfileList(profileList);
-        profileList = FXCollections.observableArrayList(profileModel.getProfiles());
-       profileListView.setItems((ObservableList<String>) profileList);
     }
 
 
@@ -80,23 +74,16 @@ public class ProfileController {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
             @SuppressWarnings("unchecked")
             TreeSet<String> loadedProfiles = (TreeSet<String>) in.readObject();
-            
             profileModel.getProfiles().clear(); // Leere die bestehende Map
             profileModel.getProfiles().addAll(loadedProfiles); // Füge geladene Profile hinzu
             profileList = FXCollections.observableArrayList(profileModel.getProfiles());
-          //  profileListView.getItems().clear();
-            profileListView.getItems().addAll(profileList);
-          //  updateProfileList(profileList);
-
-
+            profileListView.getItems().setAll(profileList);
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 }
-
-
 
 
 
