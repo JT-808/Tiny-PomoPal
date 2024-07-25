@@ -6,7 +6,9 @@ import javafx.scene.control.ListView;
 import src.main.java.de.tiny.model.ProfileModel;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -30,19 +32,19 @@ public class ProfileController {
         addProfile(profileName);
         return profileList;
     }
+    private void addProfile(String profileName) {
+        if (profileName != null && !profileName.trim().isEmpty()) {
+            profileModel.getProfiles().put(profileName, null);
+            profileList.add(profileName);
+            saveProfilesToFile();
+        }
+    }
 
     public List<String> removeProfileFromList(String profileName) {
         removeProfile(profileName);
         return profileList;
     }
 
-    private void addProfile(String profileName) {
-        if (profileName != null && !profileName.trim().isEmpty()) {
-            profileModel.getProfiles().add(profileName);
-            profileList.add(profileName);
-            saveProfilesToFile();
-        }
-    }
     public void removeProfile(String profileName) {
         if (profileName != null && !profileName.trim().isEmpty()) {
             profileModel.getProfiles().remove(profileName);
@@ -52,16 +54,15 @@ public class ProfileController {
     }
 
     public List<String> getProfileList() {
-        profileList = FXCollections.observableArrayList(profileModel.getProfiles());
+        // Erhalte alle Profile-Namen aus der HashMap
+        profileList = FXCollections.observableArrayList(profileModel.getProfiles().keySet());
+        
+        // Aktualisiere die ListView mit den Profilnamen
         profileListView.getItems().setAll(profileList);
+        
         return profileList;
     }
 
-    // To do: wird das gebraucht?
-
-        // public ProfileModel getProfileModel() {
-    //     return profileModel;
-    // }
 
 /////////////////  Speichern und Laden der Profile  //////////////////
 
@@ -74,17 +75,15 @@ public class ProfileController {
         }
     }
 
-    public void loadProfilesFromFile() {
+   public void loadProfilesFromFile() {
     File file = getProfileFile();
     if (file.exists()) {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
             @SuppressWarnings("unchecked")
-            TreeSet<String> loadedProfiles = (TreeSet<String>) in.readObject();
-            profileModel.getProfiles().clear(); // Leere die bestehende Map
-            profileModel.getProfiles().addAll(loadedProfiles); // Füge geladene Profile hinzu
-            profileList = FXCollections.observableArrayList(profileModel.getProfiles());
-            profileListView.getItems().setAll(profileList);
-
+            HashMap<String, Set<String>> loadedProfiles = (HashMap<String, Set<String>>) in.readObject();
+            profileModel.getProfiles().clear(); // bereinige die Liste
+            profileModel.getProfiles().putAll(loadedProfiles); // füge Profile aus der Datei hinzu
+            getProfileList(); // Update profileList with loaded profiles
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
