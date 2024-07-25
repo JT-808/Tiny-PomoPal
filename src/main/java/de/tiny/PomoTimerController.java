@@ -1,8 +1,16 @@
 package src.main.java.de.tiny;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +42,14 @@ public class PomoTimerController {
 
     // Phasen als Text anzeigen lassen mit umschaltung
     public void setWorkPauseText() {
+
+        try {
+            spieleSound();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         if (!workPauseText.getText().equals("work")) {
             workPauseText.setText("work");
         } else {
@@ -64,7 +80,7 @@ public class PomoTimerController {
             @Override
             public void run() {
                 if (countdown > 0) {
-                    workPauseText.setText(String.valueOf(countdown));;
+                    workPauseText.setText(String.valueOf(countdown));
                     countdown--;
                 } else {
                     delayTimer.cancel();
@@ -87,21 +103,30 @@ public class PomoTimerController {
 
             @Override
             public void run() {
+                
                 if (rundenzaehler > 0) {
                     if (verbleibendeMinuten == 0 && verbleibendeSekunden == 0) {
                         if (arbeitsPhase) {
+
+
                             verbleibendeMinuten = pausenZeit - 1;
                             verbleibendeSekunden = 59;
                             arbeitsPhase = false;
                             setWorkPauseText();
+
+
                         } else {
                             verbleibendeMinuten = work - 1;
                             verbleibendeSekunden = 59;
                             arbeitsPhase = true;
                             rundenzaehler--;
                             setWorkPauseText(); // Phase wechseln
+
                         }
                     } else {
+
+
+
                         if (verbleibendeSekunden == 0) {
                             verbleibendeMinuten--;
                             verbleibendeSekunden = 59;
@@ -136,6 +161,25 @@ public class PomoTimerController {
         return (double) remainingSeconds / totalSeconds;
     }
 
+
+
+
+    // Sound abspielen -> eventuell auslagern
+
+
+
+    public static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
+         File soundFile = new File("src/main/resources/de/tiny/beep.wav");
+
+        final Clip clip = AudioSystem.getClip();
+        final AudioInputStream in = AudioSystem.getAudioInputStream(soundFile);
+        //clip.setFramePosition(5);
+       
+        clip.open(in);
+        clip.start();
+       // clip.close();
+
+    }
 
 }
 
