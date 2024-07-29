@@ -14,12 +14,12 @@ a small Pomodoro timer
 
 ## features
 
-- Selectable working and break times and number of rounds
+- selectable work and break times and number of rounds
 - delay to start
 - select /add /delete profiles
-- save profiles local
 - sounds between switching phases
+- local profiles
+- worktime saving
+- see your total worktime
 
 ## coming soon
-
-- local profile worktime saving

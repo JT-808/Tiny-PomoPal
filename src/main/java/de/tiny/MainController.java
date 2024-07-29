@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -43,9 +45,14 @@ public class MainController implements Initializable {
 
     @FXML
     private ListView<String> profileListView = new ListView<>();
-    
 
+    @FXML
+    private Text learnTimeText;
+    
    private ProfileController profileController ;
+
+
+      //////////// Methoden in der GUI /////////////////
 
     @FXML
     public void wechselZuWork(ActionEvent event) throws IOException {
@@ -57,14 +64,11 @@ public class MainController implements Initializable {
         stage.show();
 
         PomoTimerController pomoTimerController = loader.getController();
-        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue());
+        String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
+
+        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue(),selectedProfile, profileController);
      
     }
-
-        // aktuallisiere die ListView in der GUI
-    public void updateProfileList(List<String> profileList) { 
-        profileListView.getItems().setAll(profileList);
-      }
 
     @FXML
     public void addNewProfile(ActionEvent event) {
@@ -92,11 +96,25 @@ public class MainController implements Initializable {
         }
     }
 
+    @FXML
+    public void showLearnTime(MouseEvent event) {
+        String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
+        if (selectedProfile != null) {
+            String totalLearnTime = profileController.getLearnTime(selectedProfile);
+
+            learnTimeText.setText("total learntime: \n" + totalLearnTime);
+        } else {
+            learnTimeText.setText("Kein Profil ausgewählt");
+         }
+    }
+
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialisiere die Liste der Profile in der MainController-GUI
         profileController = new ProfileController();
         profileController.initialize();
+
 
         // Laden der Profil-Liste bei der Initialisierung
        updateProfileList(profileController.getProfileList());
@@ -111,9 +129,25 @@ public class MainController implements Initializable {
         PauseBox.setItems(zeitListe);
         PauseBox.setValue(zeitListe.get(0));
         RundenBox.setItems(rundenListe);
-        RundenBox.setValue(rundenListe.get(0));     
-        
-        
+        RundenBox.setValue(rundenListe.get(0));  
 
     }
+
+             // aktuallisiere die ListView in der GUI
+
+    public void updateProfileList(List<String> profileList) { 
+        profileListView.getItems().setAll(profileList);
+    }
 }
+
+
+
+
+/*
+ * TODO
+ * 
+ * Nach starten der App sll automatisch ein Profil ausgewählt werden und
+ * auch wenn der Timer zuenede gelaufen ist bzw. nach betätigen der Stop-Taste
+ * um "Profil nicht gefunden Fehler" zu beheben.
+ * 
+ */
