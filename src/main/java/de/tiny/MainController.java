@@ -146,7 +146,7 @@ public class MainController implements Initializable {
 /*
  * TODO
  * 
- * Nach starten der App sll automatisch ein Profil ausgewählt werden und
+ * Nach starten der App soll automatisch ein Profil ausgewählt werden und
  * auch wenn der Timer zuenede gelaufen ist bzw. nach betätigen der Stop-Taste
  * um "Profil nicht gefunden Fehler" zu beheben.
  * 

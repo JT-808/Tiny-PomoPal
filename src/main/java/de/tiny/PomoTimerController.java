@@ -90,7 +90,7 @@ public class PomoTimerController {
     }
 
     /**
-     * Startet den eigentlichen Pomodoro-Timer.
+     *                    eigentlicher Pomodoro-Timer.
      * Der Timer wechselt zwischen Arbeits- und Pausenphasen und aktualisiert die UI entsprechend.
      *
      * @param timer Der Timer, der für die Zeitmessung verwendet wird
@@ -134,7 +134,6 @@ public class PomoTimerController {
                         } else {
                             verbleibendeSekunden--;
                         }
-
                         // Zeit- und Fortschrittsanzeige aktualisieren
                         ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden));
                         FortschrittsBalken.setProgress(berechneFortschritt(arbeitsPhase, work, pause, verbleibendeMinuten, verbleibendeSekunden));
@@ -178,12 +177,10 @@ public class PomoTimerController {
      */
     public void setWorkPauseText() {
         try {
-            spieleSound(); // Sound abspielen
+            spieleSound();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace(); // Fehlerbehandlung beim Abspielen des Sounds
+            e.printStackTrace();
         }
-
-        // Text für die Phase aktualisieren
         if (!workPauseText.getText().equals("work")) {
             workPauseText.setText("work");
         } else {
@@ -200,7 +197,7 @@ public class PomoTimerController {
      * @throws IOException Wenn ein Fehler beim Laden der Audio-Datei auftritt
      */
     public static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-        File soundFile = new File("src/main/resources/de/tiny/beep.wav"); // Pfad zur Audio-Datei
+        File soundFile = new File("src/main/resources/de/tiny/beep.wav");
 
         final Clip clip = AudioSystem.getClip(); // Clip zum Abspielen des Sounds
         final AudioInputStream in = AudioSystem.getAudioInputStream(soundFile); // AudioInputStream für die Datei

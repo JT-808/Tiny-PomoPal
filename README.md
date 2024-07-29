@@ -1,25 +1,37 @@
-ReadMe is under construction
+## Pomodoro Timer
+
+Notice: Comments in the code are in German to facilitate learning.
 
 ---
 
-notice: comments are in german because to learn
+# Description
 
-## description
+A small Pomodoro timer to help increase productivity by scheduling regular breaks.
 
-a small Pomodoro timer
+# Installation
 
-## installation
+Coming soon
 
-- coming soon
+# Features
 
-## features
+- Customizable Work and Break Times and Number of Rounds
 
-- selectable work and break times and number of rounds
-- delay to start
-- select /add /delete profiles
-- sounds between switching phases
-- local profiles
-- worktime saving
-- see your total worktime
+- Select your preferred work and break times and the number of repetition rounds.
+- Start Delay
 
-## coming soon
+- A short countdown before the timer starts to allow preparation.
+- Manage Profiles
+
+- Create, select, and delete different profiles to track your work times.
+- Audio Notifications
+
+- Hear a sound when switching between work and break phases.
+- Local Profile Storage
+
+- Save your profiles locally on your device.
+- Work Time Tracking
+
+- Track and save your total work time.
+- View Total Work Time
+
+- See the total work time spent with a specific profile.
