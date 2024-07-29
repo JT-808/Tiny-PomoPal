@@ -14,19 +14,19 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ## Features
 
-- **Customizable Work and Break Times and Number of Rounds**
+- Customizable Work and Break Times and Number of Rounds
 
-- Start Delay\*\*
+- Start Delay
 
-- **Manage Profiles**
+- Manage Profiles
 
-- **Audio Notifications**
+- Audio Notifications
 
-- **Local Profile Storage**
+- Local Profile Storage
 
-- **Work Time Tracking**
+- Work Time Tracking
 
-- **View Total Work Time**
+- View Total Work Time
 
 ## Coming Soon
 
