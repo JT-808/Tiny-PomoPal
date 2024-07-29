@@ -16,7 +16,7 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 - **Customizable Work and Break Times and Number of Rounds**
 
-- **Start Delay**
+- Start Delay\*\*
 
 - **Manage Profiles**
 
