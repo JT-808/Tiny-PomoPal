@@ -3,6 +3,7 @@
 **Notice:** Comments in the code are in German to facilitate learning.
 
 ![Screenshot](src/main/resources/de/tiny/screenshot1.png)
+![Screenshot](src/main/resources/de/tiny/screenshot2.png)
 
 ---
 
