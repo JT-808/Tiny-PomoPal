@@ -102,7 +102,7 @@ public class MainController implements Initializable {
         if (selectedProfile != null) {
             String totalLearnTime = profileController.getLearnTime(selectedProfile);
 
-            learnTimeText.setText("total learntime: \n" + totalLearnTime);
+            learnTimeText.setText("total study time: \n" + totalLearnTime);
         } else {
             learnTimeText.setText("Kein Profil ausgewählt");
          }
