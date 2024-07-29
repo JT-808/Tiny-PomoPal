@@ -1,18 +1,18 @@
-## Pomodoro Timer
+# Pomodoro Timer
 
 Notice: Comments in the code are in German to facilitate learning.
 
 ---
 
-# Description
+## Description
 
 A small Pomodoro timer to help increase productivity by scheduling regular breaks.
 
-# Installation
+## Installation
 
 Coming soon
 
-# Features
+## Features
 
 - Customizable Work and Break Times and Number of Rounds
 
