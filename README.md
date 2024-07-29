@@ -15,10 +15,8 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 ## Features
 
 - **Customizable Work and Break Times and Number of Rounds**
-  - Select your preferred work and break times and the number of repetition rounds.
-- **Start Delay**
 
-  - A short countdown before the timer starts to allow preparation.
+- **Start Delay**
 
 - **Manage Profiles**
 
