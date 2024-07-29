@@ -15,23 +15,20 @@ Coming soon
 ## Features
 
 - Customizable Work and Break Times and Number of Rounds
+  Select your preferred work and break times and the number of repetition rounds.
 
-- Select your preferred work and break times and the number of repetition rounds.
 - Start Delay
+  A short countdown before the timer starts to allow preparation.
 
-- A short countdown before the timer starts to allow preparation.
 - Manage Profiles
+  Create, select, and delete different profiles to track your work times.
 
-- Create, select, and delete different profiles to track your work times.
 - Audio Notifications
+  Hear a sound when switching between work and break phases.
 
-- Hear a sound when switching between work and break phases.
 - Local Profile Storage
+  Save your profiles locally on your device.
 
-- Save your profiles locally on your device.
 - Work Time Tracking
-
-- Track and save your total work time.
-- View Total Work Time
-
-- See the total work time spent with a specific profile.
+  Track and save your total work time.
+  View total work time spent with a specific profile.
