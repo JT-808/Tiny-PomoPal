@@ -2,6 +2,8 @@
 
 **Notice:** Comments in the code are in German to facilitate learning.
 
+![Screenshot](.src/main/resources/de/tiny/screenshot1.png)
+
 ---
 
 ## Description
