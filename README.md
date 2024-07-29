@@ -41,10 +41,7 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ## Coming Soon
 
-- More customization options
-- Improved user interface
-- Synchronization with online services
-- Statistics and reports
+- coming soon
 
 ---
 
