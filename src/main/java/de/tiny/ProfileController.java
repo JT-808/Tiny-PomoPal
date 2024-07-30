@@ -87,7 +87,7 @@ public class ProfileController {
             return String.format("%d h %d m", hours, minutes);
         } else {
             // Falls Profil nicht gefunden wird
-            return "Profil nicht gefunden";
+            return "profile not found";
         }
     }
 
@@ -102,7 +102,7 @@ public class ProfileController {
 
             saveProfilesToFile();
         } else {
-            System.out.println("Profil nicht gefunden: " + name);
+            System.out.println("profile not found: " + name);
         }
     }
 
@@ -127,7 +127,6 @@ public class ProfileController {
                 profileModel.getProfiles().clear(); // Bereinige die Liste
                 profileModel.getProfiles().putAll(loadedProfiles); // Füge Profile aus der Datei hinzu
                 getProfileList(); // Aktualisiere profileList mit den geladenen Profilen
-                System.out.println("Profile erfolgreich geladen.");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

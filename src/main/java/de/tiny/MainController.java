@@ -1,7 +1,5 @@
 package src.main.java.de.tiny;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import src.main.java.de.tiny.model.PomoTimerModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -24,32 +23,48 @@ public class MainController implements Initializable {
 
     private Stage stage;
     private Scene scene;
+    private ProfileController profileController;
+    private PomoTimerModel pomoTimerModel;
 
     @FXML
     private ChoiceBox<Integer> PauseBox;
-
     @FXML
     private ChoiceBox<Integer> RundenBox;
-
     @FXML
     private ChoiceBox<Integer> Workbox;
-
     @FXML
     private Button buttonStart;
-
     @FXML
     private Button addProfile;
-
     @FXML
     private Button delete;
-
     @FXML
     private ListView<String> profileListView = new ListView<>();
-
     @FXML
     private Text learnTimeText;
     
-   private ProfileController profileController ;
+
+   @Override
+   public void initialize(URL url, ResourceBundle resourceBundle) {
+       // Initialisiere das Model und die Liste der Profile in der MainController-GUI
+       profileController = new ProfileController();
+       profileController.initialize();
+       pomoTimerModel = new PomoTimerModel();
+
+       // Laden der Profil-Liste bei der Initialisierung
+      updateProfileList(profileController.getProfileList());
+
+        // Nutze die Werte aus dem Model für die ChoiceBoxen
+        Workbox.setItems(pomoTimerModel.getWorkZeiten());
+        Workbox.setValue(pomoTimerModel.getWorkZeiten().get(0));
+        PauseBox.setItems(pomoTimerModel.getPausenZeiten());
+        PauseBox.setValue(pomoTimerModel.getPausenZeiten().get(0));
+        RundenBox.setItems(pomoTimerModel.getRundenZeiten());
+        RundenBox.setValue(pomoTimerModel.getRundenZeiten().get(0));
+
+       profileListView.getSelectionModel().selectFirst(); // dient zur Fehlervermeidung (Null Exception)
+       showLearnTime(null); //zeige von Anfang an die Lernzeiten an
+   }
 
 
       //////////// Methoden in der GUI /////////////////
@@ -73,8 +88,8 @@ public class MainController implements Initializable {
     @FXML
     public void addNewProfile(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("hinzufügen");
-        dialog.setHeaderText("Bitte Namen eingeben");
+        dialog.setTitle("insert");
+        dialog.setHeaderText("insert name");
         dialog.setContentText("Name:");
         dialog.showAndWait();
 
@@ -104,50 +119,15 @@ public class MainController implements Initializable {
 
             learnTimeText.setText("total study time: \n" + totalLearnTime);
         } else {
-            learnTimeText.setText("Kein Profil ausgewählt");
+            learnTimeText.setText("choose profile");
          }
     }
 
-    
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialisiere die Liste der Profile in der MainController-GUI
-        profileController = new ProfileController();
-        profileController.initialize();
 
+        // aktuallisiere die ListView in der GUI 
 
-        // Laden der Profil-Liste bei der Initialisierung
-       updateProfileList(profileController.getProfileList());
-
-        
-        // Beispielwerte für ChoiceBoxen
-        ObservableList<Integer> zeitListe = FXCollections.observableArrayList(5, 20, 30, 45, 60); // Beispielwerte
-        ObservableList<Integer> rundenListe = FXCollections.observableArrayList(1, 2, 3, 4, 5); // Beispielwerte
-
-        Workbox.setItems(zeitListe);
-        Workbox.setValue(zeitListe.get(0));
-        PauseBox.setItems(zeitListe);
-        PauseBox.setValue(zeitListe.get(0));
-        RundenBox.setItems(rundenListe);
-        RundenBox.setValue(rundenListe.get(0));  
-
-    }
-
-             // aktuallisiere die ListView in der GUI
-
-    public void updateProfileList(List<String> profileList) { 
-        profileListView.getItems().setAll(profileList);
-    }
+   public void updateProfileList(List<String> profileList) { 
+    profileListView.getItems().setAll(profileList);
 }
-
-
-
-
-/*
- * TODO
- * 
- * Nach starten der App soll automatisch ein Profil ausgewählt werden und
- * auch wenn der Timer zuenede gelaufen ist bzw. nach betätigen der Stop-Taste
- * um "Profil nicht gefunden Fehler" zu beheben.
- * 
- */
+    
+}

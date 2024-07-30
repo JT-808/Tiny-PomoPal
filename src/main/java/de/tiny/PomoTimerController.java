@@ -30,13 +30,10 @@ public class PomoTimerController {
     // UI-Elemente
     @FXML
     private ProgressBar FortschrittsBalken; // Fortschrittsbalken für den Timer
-
     @FXML
     private Text ZeitAnzeige; // Text zur Anzeige der verbleibenden Zeit
-
     @FXML
     private Button buttonStop; // Button zum Stoppen des Timers und zum zurückkommen zur Main
-
     @FXML
     private Text workPauseText; // Text zur Anzeige der aktuellen Phase ("work" oder "pause")
 
@@ -68,7 +65,9 @@ public class PomoTimerController {
      * @param profil Der Name des Profils, das verwendet wird
      * @param profileController Der Controller für die Profile
      */
+
     void startPomodoro(int work, int pause, int runden, String profil, ProfileController profileController) {
+
         // Timer für den Countdown vor dem Start des Pomodoro-Timers
         Timer delayTimer = new Timer();
         TimerTask delayTask = new TimerTask() {
@@ -82,6 +81,7 @@ public class PomoTimerController {
                 } else {
                     delayTimer.cancel();
                     // Timer starten, nachdem der Countdown abgelaufen ist
+                    setWorkPauseText();
                     startTimer(new Timer(), work, pause, runden, profil, profileController);
                 }
             }
@@ -90,7 +90,7 @@ public class PomoTimerController {
     }
 
     /**
-     *                    eigentlicher Pomodoro-Timer.
+     *                              Pomodoro-Timer.
      * Der Timer wechselt zwischen Arbeits- und Pausenphasen und aktualisiert die UI entsprechend.
      *
      * @param timer Der Timer, der für die Zeitmessung verwendet wird
@@ -101,9 +101,10 @@ public class PomoTimerController {
      * @param profileController Der Controller für die Profile
      */
     private void startTimer(Timer timer, int work, int pause, int runden, String profil, ProfileController profileController) {
+
         TimerTask task = new TimerTask() {
             int verbleibendeSekunden = 0; // Verbleibende Sekunden in der aktuellen Phase
-            int verbleibendeMinuten = 0; // Verbleibende Minuten in der aktuellen Phase
+            int verbleibendeMinuten = work; // Verbleibende Minuten in der aktuellen Phase
             int pausenZeit = pause; // Dauer der Pausenphase
             int rundenzaehler = runden; // Anzahl der verbleibenden Runden
             boolean arbeitsPhase = true; // Aktuelle Phase (true für Arbeit, false für Pause)
@@ -124,7 +125,7 @@ public class PomoTimerController {
                             verbleibendeSekunden = 59;
                             arbeitsPhase = true;
                             rundenzaehler--;
-                            setWorkPauseText(); // Text für die nächste Phase aktualisieren
+                            setWorkPauseText(); 
                         }
                     } else {
                         // Aktualisierung der verbleibenden Zeit
@@ -145,14 +146,14 @@ public class PomoTimerController {
                     profileController.zeitEinfuegen(profil, work * runden);
                     ZeitAnzeige.setText("total learntime: " + profileController.getLearnTime(profil));
                     ZeitAnzeige.setStyle("-fx-font-size: 16px;"); // Textgröße für die Zeitanzeige ändern
-                    profileController.saveProfilesToFile();
+                    profileController.saveProfilesToFile(); //speicher die Lernzeit
                 }
             }
         };
-        // Timer alle 30 Millisekunden ausführen, um die Zeitaktualisierung zu gewährleisten
-        // aktuell wird die Zeit für testzwecke sehr schnell ablaufen
-        // Timer auf 1000 stellen um die die reguläre Zeit ablaufen zu lassen
-        timer.scheduleAtFixedRate(task, 0, 30);
+        
+        // Timer 1000 = normale Zeit
+        // Timer 20 => alle 20 ms = 1s
+        timer.scheduleAtFixedRate(task, 0, 20);
     }
 
     /**
@@ -175,6 +176,7 @@ public class PomoTimerController {
      * Aktualisiert den Text für die aktuelle Phase und spielt einen Sound ab.
      * Der Text wechselt zwischen "work" und "pause".
      */
+    
     public void setWorkPauseText() {
         try {
             spieleSound();
@@ -196,6 +198,7 @@ public class PomoTimerController {
      * @throws UnsupportedAudioFileException Wenn das Audioformat nicht unterstützt wird
      * @throws IOException Wenn ein Fehler beim Laden der Audio-Datei auftritt
      */
+
     public static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         File soundFile = new File("src/main/resources/de/tiny/beep.wav");
 
