@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Pfad zur JavaFX SDK
-JAVA_FX_PATH="/home/woodz/Dev/Libs/javafx-sdk-21.0.1/lib"
+# insert JavaFX lib path
+JAVA_FX_PATH="/path/to/javafx-sdk-21.0.1/lib"
 
-# Anwendung starten
+# start app
 java --module-path $JAVA_FX_PATH --add-modules javafx.controls,javafx.fxml --enable-preview -jar Tiny-PomoPal.jar
 
 
