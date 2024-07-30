@@ -13,13 +13,13 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ## Installation
 
-### Requeirements
+#### Requeirements
 
 - [javafx-sdk](https://gluonhq.com/products/javafx/)
 
-- [download](https://github.com/JT-808/Tiny-PomoPal/archive/refs/heads/main.zip)
+---
 
-1. Download
+1. [Download](https://github.com/JT-808/Tiny-PomoPal/archive/refs/heads/main.zip)
 2. unzip
 3. open script and change the Path of your JavaFX lib
 4. execute the sript.
