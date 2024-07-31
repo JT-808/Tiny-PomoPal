@@ -21,40 +21,46 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    // Attribute für die Steuerung der GUI
     private Stage stage;
     private Scene scene;
     private ProfileController profileController;
     private PomoTimerModel pomoTimerModel;
 
+    // FXML-Elemente in der GUI
     @FXML
-    private ChoiceBox<Integer> PauseBox;
+    private ChoiceBox<Integer> PauseBox; // Auswahlbox für Pausenzeiten
     @FXML
-    private ChoiceBox<Integer> RundenBox;
+    private ChoiceBox<Integer> RundenBox; // Auswahlbox für die Anzahl der Runden
     @FXML
-    private ChoiceBox<Integer> Workbox;
+    private ChoiceBox<Integer> Workbox; // Auswahlbox für Arbeitszeiten
     @FXML
-    private Button buttonStart;
+    private Button buttonStart; // Start-Button für den Pomodoro-Timer
     @FXML
-    private Button addProfile;
+    private Button addProfile; // Button zum Hinzufügen eines neuen Profils
     @FXML
-    private Button delete;
+    private Button delete; // Button zum Löschen eines ausgewählten Profils
     @FXML
-    private ListView<String> profileListView = new ListView<>();
+    private ListView<String> profileListView = new ListView<>(); // ListView zur Anzeige der Profile
     @FXML
-    private Text learnTimeText;
-    
+    private Text learnTimeText; // Text zur Anzeige der gesamten Lernzeit
 
-   @Override
-   public void initialize(URL url, ResourceBundle resourceBundle) {
-       // Initialisiere das Model und die Liste der Profile in der MainController-GUI
-       profileController = new ProfileController();
-       profileController.initialize();
-       pomoTimerModel = new PomoTimerModel();
+    /**
+     * Initialisiert den Controller und lädt die notwendigen Daten.
+     * @param url Der URL für die Initialisierung
+     * @param resourceBundle Das ResourceBundle für die Initialisierung
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialisiere das Profil-Controller und das Pomodoro-Timer-Modell
+        profileController = new ProfileController();
+        profileController.initialize();
+        pomoTimerModel = new PomoTimerModel();
 
-       // Laden der Profil-Liste bei der Initialisierung
-      updateProfileList(profileController.getProfileList());
+        // Lade die Profil-Liste bei der Initialisierung
+        updateProfileList(profileController.getProfileList());
 
-        // Nutze die Werte aus dem Model für die ChoiceBoxen
+        // Nutze die Werte aus dem Modell für die Auswahlboxen
         Workbox.setItems(pomoTimerModel.getWorkZeiten());
         Workbox.setValue(pomoTimerModel.getWorkZeiten().get(0));
         PauseBox.setItems(pomoTimerModel.getPausenZeiten());
@@ -62,30 +68,41 @@ public class MainController implements Initializable {
         RundenBox.setItems(pomoTimerModel.getRundenZeiten());
         RundenBox.setValue(pomoTimerModel.getRundenZeiten().get(0));
 
-       profileListView.getSelectionModel().selectFirst(); // dient zur Fehlervermeidung (Null Exception)
-       showLearnTime(null); //zeige von Anfang an die Lernzeiten an
-   }
+        // Wähle das erste Profil in der Liste aus, um NullPointerExceptions zu vermeiden
+        profileListView.getSelectionModel().selectFirst();
+        showLearnTime(null); // Zeige die Lernzeiten von Anfang an an
+    }
 
-
-    //////////// Methoden in der GUI /////////////////
+    /**
+     * Wechselt zur Pomodoro-Work-Szene und startet den Timer.
+     * @param event Das ActionEvent, das den Wechsel auslöst
+     * @throws IOException Wenn ein Fehler beim Laden der FXML-Datei auftritt
+     */
     @FXML
     public void wechselZuWork(ActionEvent event) throws IOException {
+        // Laden der PomodoroTimerView.fxml-Datei
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/main/resources/de/tiny/PomodoroTimerView.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.centerOnScreen();
+        stage.centerOnScreen(); // Zentriere das Fenster auf dem Bildschirm
         stage.show();
 
+        // Holen des Controllers der geladenen Szene
         PomoTimerController pomoTimerController = loader.getController();
         String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
 
-        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue(),selectedProfile, profileController);
-     
+        // Starte den Pomodoro-Timer mit den ausgewählten Werten und dem Profil
+        pomoTimerController.startPomodoro(Workbox.getValue(), PauseBox.getValue(), RundenBox.getValue(), selectedProfile, profileController);
     }
 
+    /**
+     * Fügt ein neues Profil hinzu, nachdem der Benutzer einen Namen eingegeben hat.
+     * @param event Das ActionEvent, das das Hinzufügen auslöst
+     */
     @FXML
     public void addNewProfile(ActionEvent event) {
+        // Dialog zur Eingabe eines neuen Profilnamens
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("insert");
         dialog.setHeaderText("insert name");
@@ -94,37 +111,46 @@ public class MainController implements Initializable {
 
         String newProfileName = dialog.getEditor().getText();
         if (newProfileName != null && !newProfileName.trim().isEmpty()) {
-            // Füge Profil zur Liste hinzu
+            // Füge das neue Profil zur Liste hinzu
             List<String> profileList = profileController.addProfileToList(newProfileName);
             updateProfileList(profileList);
         }
     }
 
+    /**
+     * Entfernt das ausgewählte Profil aus der Liste.
+     * @param event Das ActionEvent, das das Entfernen auslöst
+     */
     @FXML
     public void removeSelectedProfile(ActionEvent event) {
         String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
-            // Entferne Profil aus der Liste
+            // Entferne das ausgewählte Profil aus der Liste
             List<String> profileList = profileController.removeProfileFromList(selectedProfile); 
             updateProfileList(profileList);
         }
     }
 
+    /**
+     * Zeigt die gesamte Lernzeit für das ausgewählte Profil an.
+     * @param event Das MouseEvent, das die Anzeige auslöst
+     */
     @FXML
     public void showLearnTime(MouseEvent event) {
         String selectedProfile = profileListView.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
             String totalLearnTime = profileController.getLearnTime(selectedProfile);
-
             learnTimeText.setText("total study time: \n" + totalLearnTime);
         } else {
             learnTimeText.setText("choose profile");
-         }
+        }
     }
 
-    // aktuallisiere die ListView in der GUI 
+    /**
+     * Aktualisiert die Profil-Liste in der ListView.
+     * @param profileList Die aktualisierte Liste der Profile
+     */
     public void updateProfileList(List<String> profileList) { 
         profileListView.getItems().setAll(profileList);
-    }   
-    
+    }
 }
