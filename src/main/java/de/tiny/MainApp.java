@@ -9,10 +9,10 @@ import java.net.URL;
 
 public class MainApp extends Application {
 
-      /**
+    /**
      * Überprüfe, ob die FXML-Datei erfolgreich gefunden wurde
-    * lade FXML
-    * Starte die JavaFX-Anwendung und zeige das Hauptfenster an.
+     * lade FXML
+     * Starte die JavaFX-Anwendung und zeige das Hauptfenster an.
      *
      * @param primaryStage Die Hauptbühne der JavaFX-Anwendung
      * @throws Exception Wenn ein Fehler beim Laden der FXML-Datei auftritt
@@ -29,12 +29,11 @@ public class MainApp extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Tiny PomoPal");
         primaryStage.setScene(new Scene(root));
+        primaryStage.centerOnScreen(); // geht leider nicht
         primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
-       
-
     }
 }

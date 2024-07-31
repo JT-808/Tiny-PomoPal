@@ -67,8 +67,7 @@ public class MainController implements Initializable {
    }
 
 
-      //////////// Methoden in der GUI /////////////////
-
+    //////////// Methoden in der GUI /////////////////
     @FXML
     public void wechselZuWork(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/main/resources/de/tiny/PomodoroTimerView.fxml"));
@@ -123,11 +122,9 @@ public class MainController implements Initializable {
          }
     }
 
-
-        // aktuallisiere die ListView in der GUI 
-
-   public void updateProfileList(List<String> profileList) { 
-    profileListView.getItems().setAll(profileList);
-}
+    // aktuallisiere die ListView in der GUI 
+    public void updateProfileList(List<String> profileList) { 
+        profileListView.getItems().setAll(profileList);
+    }   
     
 }

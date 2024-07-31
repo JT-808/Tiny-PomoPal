@@ -138,6 +138,7 @@ public class PomoTimerController {
                         // Zeit- und Fortschrittsanzeige aktualisieren
                         ZeitAnzeige.setText(String.format("%02d:%02d", verbleibendeMinuten, verbleibendeSekunden));
                         FortschrittsBalken.setProgress(berechneFortschritt(arbeitsPhase, work, pause, verbleibendeMinuten, verbleibendeSekunden));
+                        
                     }
                 } else {
                     // Timer beendet, alle Anzeigen zurücksetzen und Zeiten speichern
@@ -147,10 +148,11 @@ public class PomoTimerController {
                     ZeitAnzeige.setText("total learntime: " + profileController.getLearnTime(profil));
                     ZeitAnzeige.setStyle("-fx-font-size: 16px;"); // Textgröße für die Zeitanzeige ändern
                     profileController.saveProfilesToFile(); //speicher die Lernzeit
+                    
                 }
             }
         };
-        
+      
         // Timer 1000 = normale Zeit
         // Timer 20 => alle 20 ms = 1s
         timer.scheduleAtFixedRate(task, 0, 20);
@@ -199,7 +201,7 @@ public class PomoTimerController {
      * @throws IOException Wenn ein Fehler beim Laden der Audio-Datei auftritt
      */
 
-    public static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+    private static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         File soundFile = new File("src/main/resources/de/tiny/beep.wav");
 
         final Clip clip = AudioSystem.getClip(); // Clip zum Abspielen des Sounds
@@ -208,3 +210,13 @@ public class PomoTimerController {
         clip.start(); // Clip starten
     }
 }
+
+
+
+
+/*
+ * 
+ * buttonStop.setText("finish");// für Usabillity
+ * 
+ * ?????
+ */

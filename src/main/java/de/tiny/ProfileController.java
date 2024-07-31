@@ -12,7 +12,8 @@ import java.util.List;
 
 public class ProfileController {
 
-    @FXML ListView<String> profileListView = new ListView<>();
+    @FXML
+    ListView<String> profileListView = new ListView<>();
     public ProfileModel profileModel;
     private List<String> profileList;
     
@@ -30,10 +31,10 @@ public class ProfileController {
         addProfile(profileName);
         return profileList;
     }
-    @SuppressWarnings("unchecked")
+
     private void addProfile(String profileName) {
         if (profileName != null && !profileName.trim().isEmpty()) {
-            ArrayList lernZeit = new ArrayList<>();
+            ArrayList<Integer> lernZeit = new ArrayList<>();
             lernZeit.add(0);
             profileModel.getProfiles().put(profileName,lernZeit);
             profileList.add(profileName);
@@ -67,6 +68,7 @@ public class ProfileController {
         return profileList;
     }
 
+    
     public String getLearnTime(String profileName) {
         int totalMinutes = 0;
     
