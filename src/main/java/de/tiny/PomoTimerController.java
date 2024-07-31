@@ -210,13 +210,3 @@ public class PomoTimerController {
         clip.start(); // Clip starten
     }
 }
-
-
-
-
-/*
- * 
- * buttonStop.setText("finish");// für Usabillity
- * 
- * ?????
- */
