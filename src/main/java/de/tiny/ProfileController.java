@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Controller-Klasse zur Verwaltung der Benutzerprofile.
+ */
 public class ProfileController {
 
     @FXML
@@ -16,6 +19,9 @@ public class ProfileController {
     public ProfileModel profileModel; // Modell zur Verwaltung der Profile
     private List<String> profileList; // Liste der Profilnamen
 
+    /**
+     * Initialisiert den Controller und lädt die Profile aus der Datei.
+     */
     @FXML
     public void initialize() {
         profileModel = new ProfileModel(); // Initialisiere das ProfileModel
@@ -24,14 +30,21 @@ public class ProfileController {
 
     ////////// Profile Hinzufügen & Löschen /////////////////
 
-    // Methode zur Hinzufügung eines neuen Profils in die Liste
+    /**
+     * Methode zur Hinzufügung eines neuen Profils in die Liste.
+     * @param profileName Name des neuen Profils
+     * @return Aktualisierte Liste der Profilnamen
+     */
     public List<String> addProfileToList(String profileName) {
-        if(!profileList.contains(profileName)) // Überprüfe, ob das Profil bereits existiert
+        if (!profileList.contains(profileName)) // Überprüfe, ob das Profil bereits existiert
             addProfile(profileName); // Füge das Profil hinzu, wenn es nicht existiert
         return profileList; // Gib die aktualisierte Profilliste zurück
     }
 
-    // Interne Methode zur tatsächlichen Hinzufügung des Profils
+    /**
+     * Interne Methode zur tatsächlichen Hinzufügung des Profils.
+     * @param profileName Name des neuen Profils
+     */
     private void addProfile(String profileName) {
         if (profileName != null && !profileName.trim().isEmpty()) { // Überprüfe, ob der Profilname gültig ist
             ArrayList<Integer> lernZeit = new ArrayList<>(); // Initialisiere die Lernzeitliste für das neue Profil
@@ -42,13 +55,20 @@ public class ProfileController {
         }
     }
 
-    // Methode zur Entfernung eines Profils aus der Liste
+    /**
+     * Methode zur Entfernung eines Profils aus der Liste.
+     * @param profileName Name des zu entfernenden Profils
+     * @return Aktualisierte Liste der Profilnamen
+     */
     public List<String> removeProfileFromList(String profileName) {
         removeProfile(profileName); // Entferne das Profil
         return profileList; // Gib die aktualisierte Profilliste zurück
     }
 
-    // Interne Methode zur tatsächlichen Entfernung des Profils
+    /**
+     * Interne Methode zur tatsächlichen Entfernung des Profils.
+     * @param profileName Name des zu entfernenden Profils
+     */
     public void removeProfile(String profileName) {
         if (profileName != null && !profileName.trim().isEmpty()) { // Überprüfe, ob der Profilname gültig ist
             profileModel.getProfiles().remove(profileName); // Entferne das Profil aus dem Modell
@@ -59,34 +79,41 @@ public class ProfileController {
 
     ///////////////////////// Daten setzen und erhalten /////////////////////
 
-    // Methode zum Abrufen der Profilliste
+    /**
+     * Methode zum Abrufen der Profilliste.
+     * @return Liste der Profilnamen
+     */
     public List<String> getProfileList() {
         // Erhalte alle Profilnamen aus der HashMap
         profileList = FXCollections.observableArrayList(profileModel.getProfiles().keySet());
-        
+
         // Aktualisiere die ListView mit den Profilnamen
         profileListView.getItems().setAll(profileList);
-        
+
         return profileList; // Gib die Profilliste zurück
     }
 
-    // Methode zur Berechnung und Rückgabe der Lernzeit für ein Profil
+    /**
+     * Methode zur Berechnung und Rückgabe der Lernzeit für ein Profil.
+     * @param profileName Name des Profils
+     * @return Formatierte Lernzeit als String
+     */
     public String getLearnTime(String profileName) {
         int totalMinutes = 0; // Gesamte Lernzeit in Minuten
-    
+
         // Überprüfen, ob das Profil existiert
         if (profileModel.getProfiles().containsKey(profileName)) {
             List<Integer> lernZeit = profileModel.getProfiles().get(profileName); // Hole die Lernzeiten für das Profil
-            
+
             // Berechnung der Gesamtzeit in Minuten
             for (int zeit : lernZeit) {
                 totalMinutes += zeit;
             }
-            
+
             // Umwandlung in Stunden und Minuten
             int hours = totalMinutes / 60;
             int minutes = totalMinutes % 60;
-    
+
             // Rückgabe der Zeit als formatierten String
             return String.format("%d h %d m", hours, minutes);
         } else {
@@ -95,7 +122,11 @@ public class ProfileController {
         }
     }
 
-    // Methode zum Hinzufügen von Lernzeit zu einem Profil
+    /**
+     * Methode zum Hinzufügen von Lernzeit zu einem Profil.
+     * @param name Name des Profils
+     * @param zeit Hinzuzufügende Lernzeit in Minuten
+     */
     public void zeitEinfuegen(String name, int zeit) {
         if (profileList.contains(name)) { // Überprüfen, ob das Profil existiert
             List<Integer> lernZeit = profileModel.getProfiles().get(name); // Hole die Lernzeiten für das Profil
@@ -111,9 +142,11 @@ public class ProfileController {
         }
     }
 
-    /////////////////  Speichern und Laden der Profile  //////////////////
+    ///////////////// Speichern und Laden der Profile //////////////////
 
-    // Methode zum Speichern der Profile in einer Datei
+    /**
+     * Methode zum Speichern der Profile in einer Datei.
+     */
     public void saveProfilesToFile() {
         File file = getProfileFile(); // Hole die Datei zum Speichern der Profile
         try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
@@ -123,7 +156,9 @@ public class ProfileController {
         }
     }
 
-    // Methode zum Laden der Profile aus einer Datei
+    /**
+     * Methode zum Laden der Profile aus einer Datei.
+     */
     public void loadProfilesFromFile() {
         File file = getProfileFile(); // Hole die Datei zum Laden der Profile
         if (file.exists()) {
@@ -139,7 +174,10 @@ public class ProfileController {
         }
     }
 
-    // Methode zum Abrufen der Datei zum Speichern/Laden der Profile
+    /**
+     * Methode zum Abrufen der Datei zum Speichern/Laden der Profile.
+     * @return Dateiobjekt für die Profile
+     */
     private File getProfileFile() {
         String userHome = System.getProperty("user.home"); // Plattformunabhängiger Speicherort
         File appDirectory = new File(userHome, "tinyPomo"); // Ordner für die Anwendung
@@ -148,5 +186,4 @@ public class ProfileController {
         }
         return new File(appDirectory, "profile.dat"); // Erstelle im Ordner die Profildatei
     }
-
 }
