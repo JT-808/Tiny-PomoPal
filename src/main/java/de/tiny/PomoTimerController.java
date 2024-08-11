@@ -157,7 +157,7 @@ public class PomoTimerController {
       
         // Timer 1000 = normale Zeit
         // Timer 20 => alle 20 ms = 1s
-        timer.scheduleAtFixedRate(task, 0, 20);
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     /**
