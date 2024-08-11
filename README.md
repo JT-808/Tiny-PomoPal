@@ -21,9 +21,11 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ---
 
-1. [Download](https://drive.google.com/file/d/1JZCpUbN9ob6trjRAjN9BKkhLDO2H0erI/view?usp=drive_link)
+1. [Download](https://workupload.com/file/a4Rj2nQVN9F)
 2. unzip
 3. execute the script.
+
+checksum: 30d9f04471f99d960c0c815e641408b1137fc331e542607773d1b9ea566ec0b0 (SHA256)
 
 ## Features
 
