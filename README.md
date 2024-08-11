@@ -22,7 +22,7 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ---
 
-1. [Download](https://drive.google.com/file/d/132hrHVOHIh0chqfjkxOpVAcHzbwWIUSB/view?usp=drive_link)
+1. [Download](https://drive.google.com/file/d/1JZCpUbN9ob6trjRAjN9BKkhLDO2H0erI/view?usp=drive_link)
 2. unzip
 3. execute the script.
 
