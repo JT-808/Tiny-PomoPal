@@ -114,6 +114,8 @@ public class MainController implements Initializable {
             // Füge das neue Profil zur Liste hinzu
             List<String> profileList = profileController.addProfileToList(newProfileName);
             updateProfileList(profileList);
+            // Wähle das erste Profil in der Liste aus, um NullPointerExceptions zu vermeiden
+        profileListView.getSelectionModel().selectFirst();
         }
     }
 

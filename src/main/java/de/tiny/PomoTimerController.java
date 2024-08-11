@@ -1,7 +1,9 @@
 package src.main.java.de.tiny;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.sound.sampled.AudioInputStream;
@@ -179,10 +181,10 @@ public class PomoTimerController {
      * Der Text wechselt zwischen "work" und "pause".
      */
     
-    public void setWorkPauseText() {
+     public void setWorkPauseText() {
         try {
             spieleSound();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+        } catch (LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
         if (!workPauseText.getText().equals("work")) {
@@ -192,21 +194,26 @@ public class PomoTimerController {
         }
     }
 
-    /**
+   /**
      * Spielt einen Sound ab, um den Phasenwechsel zu signalisieren.
-     * Sound wurde selbst aufgenommen
      *
      * @throws LineUnavailableException Wenn die Audio-Leitung nicht verfügbar ist
      * @throws UnsupportedAudioFileException Wenn das Audioformat nicht unterstützt wird
      * @throws IOException Wenn ein Fehler beim Laden der Audio-Datei auftritt
      */
+    public void spieleSound() throws LineUnavailableException, InterruptedException {
+        try (InputStream audioSrc = getClass().getResourceAsStream("/src/main/resources/de/tiny/beep.wav");
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(audioSrc)) {
 
-    private static void spieleSound() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-        File soundFile = new File("src/main/resources/de/tiny/beep.wav");
-
-        final Clip clip = AudioSystem.getClip(); // Clip zum Abspielen des Sounds
-        final AudioInputStream in = AudioSystem.getAudioInputStream(soundFile); // AudioInputStream für die Datei
-        clip.open(in); // Clip öffnen
-        clip.start(); // Clip starten
+            try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedInputStream)) {
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+                clip.start();
+            } catch (UnsupportedAudioFileException | IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
