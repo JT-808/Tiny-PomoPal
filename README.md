@@ -17,14 +17,14 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 - [java](https://www.oracle.com/de/java/technologies/downloads/)
 - [javafx-sdk](https://gluonhq.com/products/javafx/)
-  (if you want to code. Not for the Download below.
+  (if you want to code. Not for the download below.
   JavaFX Lib is inside the download zip)
 
 ---
 
 1. [Download](https://drive.google.com/file/d/132hrHVOHIh0chqfjkxOpVAcHzbwWIUSB/view?usp=drive_link)
 2. unzip
-3. execute the sript.
+3. execute the script.
 
 ## Features
 
