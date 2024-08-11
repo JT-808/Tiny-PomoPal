@@ -1,7 +1,5 @@
 # Pomodoro Timer
 
-**Notice:** Comments in the code are in German to facilitate learning.
-
 ![Screenshot](src/main/resources/de/tiny/screenshot1.png)
 ![Screenshot](src/main/resources/de/tiny/screenshot2.png)
 
@@ -15,8 +13,9 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 #### Requeirements
 
+- Linux (actually not Windows/Mac)
 - [java (OpenJDK 22)](https://jdk.java.net/22/)
-- [javafx-sdk](https://gluonhq.com/products/javafx/)
+- [javafx 21 -sdk](https://gluonhq.com/products/javafx/)
   (if you want to code. Not for the download below.
   JavaFX Lib is inside the download zip)
 

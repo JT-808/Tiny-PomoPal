@@ -22,7 +22,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E0E0E0;">
                <children>
-                  <Text fx:id="workPauseText" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="91.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="77.98307418823242">
+                  <Text fx:id="workPauseText" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="95.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="69.98307418823242">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -41,9 +41,9 @@
                     </rowConstraints>
                      <children>
                         <ProgressBar fx:id="FortschrittsBalken" prefWidth="200.0" progress="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Text fx:id="ZeitAnzeige" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="185.9830722808838" GridPane.halignment="CENTER">
+                        <Text fx:id="ZeitAnzeige" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="164.9830722808838" GridPane.halignment="CENTER">
                            <font>
-                              <Font size="70.0" />
+                              <Font size="60.0" />
                            </font>
                         </Text>
                      </children>
