@@ -16,7 +16,8 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 #### Requeirements
 
 - [javafx-sdk](https://gluonhq.com/products/javafx/)
-  (if you want to code. Not for the Download below)
+  (if you want to code. Not for the Download below.
+  JavaFX Lib is inside the download zip)
 
 ---
 
