@@ -21,7 +21,7 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 
 ---
 
-1. [Download](https://workupload.com/file/a4Rj2nQVN9F)
+1. [Download](https://github.com/JT-808/Tiny-PomoPal/releases)
 2. unzip
 3. execute the script.
 
