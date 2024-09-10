@@ -25,7 +25,6 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 2. unzip
 3. execute the script.
 
-checksum: 30d9f04471f99d960c0c815e641408b1137fc331e542607773d1b9ea566ec0b0 (SHA256)
 
 ## Features
 
@@ -42,7 +41,3 @@ checksum: 30d9f04471f99d960c0c815e641408b1137fc331e542607773d1b9ea566ec0b0 (SHA2
 - Work Time Tracking
 
 - View Total Work Time
-
-## Coming Soon
-
-- coming soon
