@@ -29,7 +29,7 @@ public class MainApp extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Tiny PomoPal");
         primaryStage.setScene(new Scene(root));
-        primaryStage.centerOnScreen(); // geht leider nicht
+        primaryStage.centerOnScreen(); // Fenster zentrieren
         primaryStage.show();
     }
 
