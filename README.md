@@ -14,16 +14,10 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 #### Requeirements
 
 - Linux (actually not Windows/Mac)
-- [java (OpenJDK 22)](https://jdk.java.net/22/)
-- [javafx 21 -sdk](https://gluonhq.com/products/javafx/)
-  (if you want to code. Not for the download below.
-  JavaFX Lib is inside the download zip)
 
 ---
 
-1. [Download](https://github.com/JT-808/Tiny-PomoPal/releases)
-2. unzip
-3. execute the script.
+[Download](https://github.com/JT-808/Tiny-PomoPal/releases)
 
 
 ## Features
@@ -41,3 +35,10 @@ A small Pomodoro timer to help increase productivity by scheduling regular break
 - Work Time Tracking
 
 - View Total Work Time
+
+
+
+## build with:
+
+- jlink
+- jpackager
