@@ -9,9 +9,8 @@
 
 A small Pomodoro timer to help increase productivity by scheduling regular breaks.
 
-## Installation
 
-#### Requeirements
+## Requeirements
 
 - Linux (actually not Windows/Mac)
 

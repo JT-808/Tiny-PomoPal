@@ -43,7 +43,7 @@
                         <ProgressBar fx:id="FortschrittsBalken" prefWidth="200.0" progress="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Text fx:id="ZeitAnzeige" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="164.9830722808838" GridPane.halignment="CENTER">
                            <font>
-                              <Font size="60.0" />
+                              <Font size="50.0" />
                            </font>
                         </Text>
                      </children>
